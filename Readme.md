@@ -4,58 +4,46 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
-3D Stacker Game is an OpenGL-based interactive application that demonstrates core Computer Graphics concepts including:
+3D Stacker Game is an OpenGL-based interactive application that demonstrates core Computer Graphics concepts:
 
-- 3D Translation Transformations
-- View Matrix (Camera System)
-- Perspective Projection
-- Distance-Based Collision Detection
-- Real-Time State Management
+- 3D translation and transformations
+- Camera and view matrix
+- Perspective projection
+- Collision detection
+- Real-time state management
 
-The objective is to stack horizontally moving cubes vertically.  
-If the cube lands at least partially on the previous cube, it is stacked.  
-If it completely misses, it falls and the game resets.
-
-The implementation strictly uses geometric logic — no physics engine is involved.
+The objective is to stack horizontally moving cubes vertically. If the cube lands at least partially on the previous cube, it is stacked. If it completely misses, it falls and the game resets.
 
 ---
 
-# 🎮 Gameplay Summary
+## Gameplay
 
-- Active cube moves horizontally using sine-wave motion.
-- Press **Spacebar** to lock the cube.
-- Partial overlap → Stack continues.
-- Complete miss → Failure animation + reset.
-- Score = Number of stacked cubes.
-
----
-
-# 🧠 Core Logic
-
-### Collision Rule
-
-Let:
-
-```
-d = |ActiveX - PreviousX|
-```
-
-If:
-
-```
-d ≤ CubeWidth  →  Valid Stack
-d > CubeWidth  →  Failure
-```
-
-This guarantees that even minimal overlap is accepted.
+- The active cube moves horizontally in a sine-wave motion.
+- Press **Spacebar** to lock the cube in place.
+- Partial overlap: stack continues.
+- Complete miss: failure animation and reset.
+- Score: number of stacked cubes.
 
 ---
 
-# 🏗️ System Architecture
+## Core Logic
 
-## High-Level Architecture
+**Collision Rule:**
+
+Let $d = |\text{ActiveX} - \text{PreviousX}|$
+
+- If $d \leq \text{CubeWidth}$ → Valid stack
+- If $d > \text{CubeWidth}$ → Failure
+
+Any overlap is accepted.
+
+---
+
+## System Architecture
+
+### High-Level Flow
 
 ```mermaid
 flowchart TD
@@ -63,7 +51,6 @@ flowchart TD
     B --> C[Shader Compilation]
     C --> D[Buffer Setup (VAO, VBO, EBO)]
     D --> E[Main Game Loop]
-
     E --> F[Input Handling]
     E --> G[Update Game State]
     E --> H[Collision Check]
@@ -74,7 +61,7 @@ flowchart TD
 
 ---
 
-## Rendering Pipeline
+### Rendering Pipeline
 
 ```mermaid
 flowchart LR
@@ -87,7 +74,7 @@ flowchart LR
 
 ---
 
-## Game State Flow
+### Game State Flow
 
 ```mermaid
 stateDiagram-v2
@@ -101,7 +88,7 @@ stateDiagram-v2
 
 ---
 
-# 📂 Project Structure
+## Project Structure
 
 ```
 3d-stacker-game/
@@ -112,12 +99,12 @@ stateDiagram-v2
 │   └── basic.frag           # Fragment shader
 │
 ├── README.md
-└── requirements.txt (optional)
+└── requirements.txt
 ```
 
 ---
 
-# ⚙️ Requirements
+## Requirements
 
 - Python 3.9+
 - OpenGL 4.1 Core Profile
@@ -128,60 +115,38 @@ stateDiagram-v2
 
 ---
 
-# 🚀 Installation Guide
+## Installation
 
-## 1️⃣ Clone Repository
-
+Clone the repository:
 ```bash
 git clone https://github.com/Mohi1038/3d-stackers-game.git
 cd 3d-stackers-game
 ```
 
----
-
-## 2️⃣ Create Virtual Environment (Recommended)
-
-### macOS / Linux
+Create a virtual environment (recommended):
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### Windows
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
----
-
-## 3️⃣ Install Dependencies
-
+Install dependencies:
 ```bash
 pip install glfw PyOpenGL pyrr numpy
-```
-
-(Optional)
-```bash
+# or
 pip install -r requirements.txt
 ```
 
 ---
 
-# ▶️ Running the Application
+## Running the Application
 
 ```bash
 python stackers.py
 ```
 
-Ensure:
-
-- The `shaders/` folder exists.
-- `basic.vert` and `basic.frag` are present.
-
 ---
 
-# 🎥 Controls
+## Controls
 
 | Key        | Action              |
 |------------|--------------------|
@@ -190,66 +155,27 @@ Ensure:
 
 ---
 
-# 🎨 Rendering & Transformation Details
+## Rendering & Transformation
 
-### Model Matrix
-Used to translate cubes in 3D space:
-- X → Horizontal movement
-- Y → Stack height
-- Z → Depth alignment
-
-### View Matrix
-Camera dynamically adjusts height:
-```
-CameraHeight = BaseHeight + (Layer * ScaleFactor)
-```
-
-Ensures full stack visibility.
-
-### Projection Matrix
-Perspective projection:
-```
-Perspective(FOV, AspectRatio, Near, Far)
-```
-
-Creates depth realism.
+- **Model Matrix:** Translates cubes in 3D space (X: horizontal, Y: stack height, Z: depth)
+- **View Matrix:** Camera dynamically adjusts height for stack visibility
+- **Projection Matrix:** Perspective projection for depth realism
 
 ---
 
-# 📊 Features Implemented
+## Features
 
-- ✔ Sine-wave dynamic cube movement
-- ✔ Translation matrix positioning
-- ✔ Distance-based partial overlap logic
-- ✔ Failure detection with vertical drop animation
-- ✔ Dynamic camera tracking
-- ✔ Perspective projection
-- ✔ Score HUD
-
----
-
-# 🛠️ Troubleshooting
-
-### Shader Compilation Error
-Ensure:
-- OpenGL 4.1 Core Profile is supported.
-- Shader files are correctly located.
-
-### macOS Issues
-macOS requires:
-```
-glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, GL_TRUE)
-```
-
-### Black Screen
-Check:
-- Depth testing enabled
-- Shader compiled successfully
-- VAO created before buffer binding
+- Sine-wave dynamic cube movement
+- Translation matrix positioning
+- Distance-based partial overlap logic
+- Failure detection with vertical drop animation
+- Dynamic camera tracking
+- Perspective projection
+- Score HUD
 
 ---
 
-# 📈 Possible Enhancements
+## Possible Enhancements
 
 - Dynamic cube trimming (real stacker behavior)
 - Increasing difficulty (speed scaling)
@@ -259,10 +185,9 @@ Check:
 
 ---
 
-# 📜 Academic Context
+## Academic Context
 
-This project demonstrates practical implementation of:
-
+This project demonstrates:
 - Model-View-Projection pipeline
 - Real-time rendering loop
 - Transformation matrices
@@ -271,6 +196,6 @@ This project demonstrates practical implementation of:
 
 ---
 
-# 📌 Conclusion
+## Conclusion
 
-The 3D Stacker Game successfully integrates mathematical modeling and graphical rendering into an interactive application. The project strictly adheres to transformation-based logic without relying on physics engines, aligning with the learning objectives of CSL7450 – Computer Graphics.
+The 3D Stacker Game integrates mathematical modeling and graphical rendering into an interactive application, strictly using transformation-based logic without a physics engine. It aligns with the learning objectives of CSL7450 – Computer Graphics.
