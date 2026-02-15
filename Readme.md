@@ -43,21 +43,7 @@ Any overlap is accepted.
 
 ## System Architecture
 
-### High-Level Flow
-
-```mermaid
-flowchart TD
-    A[GLFW Window Initialization] --> B[OpenGL Context Creation]
-    B --> C[Shader Compilation]
-    C --> D[Buffer Setup (VAO, VBO, EBO)]
-    D --> E[Main Game Loop]
-    E --> F[Input Handling]
-    E --> G[Update Game State]
-    E --> H[Collision Check]
-    E --> I[Apply Transformations]
-    E --> J[Render Scene]
-    J --> E
-```
+<!-- High-Level Flow diagram removed as requested. -->
 
 ---
 
